@@ -6,18 +6,17 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  PROJECT_ID: ${{ secrets.PROJECT_ID }}
-  REGION: ${{ secrets.REGION }}
-  APP_NAME: ${{ secrets.DEV_APP_NAME }}
-  REGISTRY_NAME: ${{ secrets.ARTIFACT_REGISTRY_NAME }}
-  SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
-
 jobs:
   build-and-deploy:
     name: Setup, Build, and Deploy
     runs-on: ubuntu-latest
     environment: development
+    env:
+      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      REGION: ${{ secrets.REGION }}
+      APP_NAME: ${{ secrets.DEV_APP_NAME }}
+      REGISTRY_NAME: ${{ secrets.ARTIFACT_REGISTRY_NAME }}
+      SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
