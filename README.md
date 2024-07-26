@@ -35,7 +35,7 @@ This project is a template for creating microservices on Google Cloud Platform's
   ```
 
 * Create a `.env` file in your local with the minimal parameters.
-  ```bash
+  ```dosini
   GOOGLE_CLOUD_PROJECT=
   APP_NAME=
   APP_DESCRIPTION=
@@ -106,20 +106,25 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Project Directory Structure
 
-```
+```bash
 ├── src
-│   ├── infrastructure
-│   │   ├── env
-│   │   │   └── index.ts
-│   │   ├── ioc
-│   │   │   ├── app.module.ts
-│   │   │   └── infrastructure.module.ts
-│   │   └── logger
-│   │       └── index.ts
-│   └── main.ts
+│   ├── infrastructure
+│   │   ├── env
+│   │   │   └── index.ts
+│   │   ├── http
+│   │   │   └── controllers
+│   │   │       └── home.controller.ts
+│   │   ├── ioc
+│   │   │   ├── app.module.ts
+│   │   │   └── infrastructure.module.ts
+│   │   └── logger
+│   │       ├── gcp.logger.ts
+│   │       ├── index.ts
+│   │       └── request.logger.ts
+│   └── main.ts
 ├── test
-│   ├── app.e2e-spec.ts
-│   └── jest-e2e.json
+│   ├── app.e2e-spec.ts
+│   └── jest-e2e.json
 ├── .dockerignore
 ├── .eslintrc.js
 ├── .gcloudignore
