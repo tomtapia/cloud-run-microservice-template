@@ -139,3 +139,4 @@ dist
 
 # macOS
 **/.DS_Store
+*.json
