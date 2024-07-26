@@ -11,20 +11,14 @@ jobs:
     name: Setup, Build, and Deploy
     runs-on: ubuntu-latest
     environment: development
-    env:
-      PROJECT_ID: ${{ secrets.PROJECT_ID }}
-      REGION: ${{ secrets.REGION }}
-      APP_NAME: ${{ secrets.DEV_APP_NAME }}
-      REGISTRY_NAME: ${{ secrets.ARTIFACT_REGISTRY_NAME }}
-      SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
     steps:
       - name: Print environment variables
         run: |
-          echo "PROJECT_ID=${{ env.PROJECT_ID }}"
-          echo "REGION=${{ env.REGION }}"
-          echo "APP_NAME=${{ env.APP_NAME }}"
-          echo "REGISTRY_NAME=${{ env.REGISTRY_NAME }}"
-          echo "SERVICE_ACCOUNT_EMAIL=${{ env.SERVICE_ACCOUNT_EMAIL }}"
+          echo "PROJECT_ID=${{ secrets.PROJECT_ID }}"
+          echo "REGION=${{ secrets.REGION }}"
+          echo "APP_NAME=${{ secrets.APP_NAME }}"
+          echo "REGISTRY_NAME=${{ secrets.ARTIFACT_REGISTRY_NAME }}"
+          echo "SERVICE_ACCOUNT_EMAIL=${{ secrets.SERVICE_ACCOUNT_EMAIL }}"
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -40,22 +34,22 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Authorize Docker push
-        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+        run: gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev
 
       - name: Build and tag the docker image
         run: |-
-          docker build --build-arg NODE_ENV=dev . --tag ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REGISTRY_NAME }}/${{ env.APP_NAME }}:$GITHUB_SHA
+          docker build --build-arg NODE_ENV=dev . --tag ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_NAME }}/${{ secrets.APP_NAME }}:$GITHUB_SHA
 
       - name: Push the image to the Google Artifact Registry (GAR)
         run: |-
-          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REGISTRY_NAME }}/${{ env.APP_NAME }}:$GITHUB_SHA
+          docker push ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_NAME }}/${{ secrets.APP_NAME }}:$GITHUB_SHA
 
       - name: Deploy
         run: |-
-          gcloud run deploy ${{ env.APP_NAME }} \
-          --region ${{ env.REGION }} \
-          --image ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REGISTRY_NAME }}/${{ env.APP_NAME }}:$GITHUB_SHA \
+          gcloud run deploy ${{ secrets.APP_NAME }} \
+          --region ${{ secrets.REGION }} \
+          --image ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_NAME }}/${{ secrets.APP_NAME }}:$GITHUB_SHA \
           --platform "managed" \
-          --service-account ${{ env.SERVICE_ACCOUNT_EMAIL }} \
+          --service-account ${{ secrets.SERVICE_ACCOUNT_EMAIL }} \
           --port 80 \
           --quiet
