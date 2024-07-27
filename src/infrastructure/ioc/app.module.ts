@@ -8,6 +8,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getEnv } from '../env';
 import { InfrastructureModule } from './infrastructure.module';
 import { GCPLogger, RequestLogger } from '../logger';
+import { CompressionMiddleware } from '../middleware/compression.middleware';
+import { HelmetMiddleware } from '../middleware/helmet.middleware';
 
 const gcpProjectIdValue = {
   provide: 'GCP_PROJECT_ID',
@@ -31,8 +33,13 @@ const gcpProjectIdValue = {
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    const middlewares = [
+      RequestLogger,
+      HelmetMiddleware,
+      CompressionMiddleware,
+    ];
     consumer
-      .apply(RequestLogger)
+      .apply(...middlewares)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

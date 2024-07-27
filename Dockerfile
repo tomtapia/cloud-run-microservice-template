@@ -32,4 +32,5 @@ WORKDIR /app
 COPY --from=builder /app ./
 
 # Run the web service on container startup.
+ENV NODE_ENV production
 ENTRYPOINT ["npm", "run", "start:prod"]
