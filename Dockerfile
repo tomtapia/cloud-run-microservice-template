@@ -1,6 +1,7 @@
-# Use the official lightweight Node.js image.
-# https://hub.docker.com/_/node
-FROM node:21-slim AS builder
+###################
+# BUILD FOR PRODUCTION
+###################
+FROM node:22-alpine AS builder
 
 # Create and change to the app directory.
 WORKDIR /app
@@ -11,16 +12,20 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies.
-RUN npm ci --only=production
+RUN npm i -g @nestjs/cli
+RUN npm ci
 
 # Copy local code to the container image.
 COPY . ./
 
 # Run a build task.
+ENV NODE_ENV production
 RUN npm run build
 
-
-FROM node:21-slim
+###################
+# PRODUCTION
+###################
+FROM node:22-slim
 
 WORKDIR /app
 
