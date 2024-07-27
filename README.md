@@ -1,6 +1,6 @@
 # Cloud Run Microservice Template
 
-[![Build Status](https:\/\/img.shields.io\/github\/actions\/workflow\/status\/tomtapia\/cloud-run-microservice-template\/ci.yml)](https:\/\/github.com\/tomtapia\/cloud-run-microservice-template\/actions)
+[![Build Status](https:\/\/img.shields.io\/github\/actions\/workflow\/status\/tomtapia\/cloud-run-microservice-template\/cloud-run-deployer.yml)](https:\/\/github.com\/tomtapia\/cloud-run-microservice-template\/actions)
 [![License](https:\/\/img.shields.io\/github\/license\/tomtapia\/cloud-run-microservice-template)](https:\/\/github.com\/tomtapia\/cloud-run-microservice-template\/blob\/main\/LICENSE)
 
 ## Microservice Template for GCP Cloud Run
