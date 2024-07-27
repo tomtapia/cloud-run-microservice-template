@@ -12,14 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: development
     steps:
-      - name: Print environment variables
-        run: |
-          echo "PROJECT_ID=${{ secrets.PROJECT_ID }}"
-          echo "REGION=${{ secrets.REGION }}"
-          echo "APP_NAME=${{ secrets.APP_NAME }}"
-          echo "REGISTRY_NAME=${{ secrets.ARTIFACT_REGISTRY_NAME }}"
-          echo "SERVICE_ACCOUNT_EMAIL=${{ secrets.SERVICE_ACCOUNT_EMAIL }}"
-
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -49,7 +41,11 @@ jobs:
           gcloud run deploy ${{ secrets.APP_NAME }} \
           --region ${{ secrets.REGION }} \
           --image ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.ARTIFACT_REGISTRY_NAME }}/${{ secrets.APP_NAME }}:$GITHUB_SHA \
+          --min-instances 1 \
+          --max-instances 1 \
           --platform "managed" \
           --service-account ${{ secrets.SERVICE_ACCOUNT_EMAIL }} \
-          --port 80 \
+          --timeout 5s \
+          --port ${{ secrets.APP_PORT }} \
+          --set-env-vars=GOOGLE_CLOUD_PROJECT=${{ secrets.PROJECT_ID }},APP_NAME=${{ secrets.APP_NAME }},APP_DESCRIPTION=${{ secrets.APP_DESCRIPTION }},API_VERSION=$GITHUB_SHA,PORT=${{ secrets.APP_PORT }} \
           --quiet
