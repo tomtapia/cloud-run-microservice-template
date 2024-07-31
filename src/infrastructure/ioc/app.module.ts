@@ -4,20 +4,12 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { getEnv } from '../env';
 import { InfrastructureModule } from './infrastructure.module';
 import { GCPLogger, RequestLogger } from '../logger';
 import { CompressionMiddleware } from '../middleware/compression.middleware';
 import { HelmetMiddleware } from '../middleware/helmet.middleware';
-
-const gcpProjectIdValue = {
-  provide: 'GCP_PROJECT_ID',
-  useFactory: (configService: ConfigService) => {
-    return configService.get('GOOGLE_CLOUD_PROJECT');
-  },
-  inject: [ConfigService],
-};
 
 @Module({
   imports: [
@@ -28,8 +20,8 @@ const gcpProjectIdValue = {
       envFilePath: getEnv(),
     }),
   ],
-  providers: [gcpProjectIdValue, GCPLogger, RequestLogger],
-  exports: [gcpProjectIdValue, GCPLogger, RequestLogger],
+  providers: [GCPLogger, RequestLogger],
+  exports: [GCPLogger, RequestLogger],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

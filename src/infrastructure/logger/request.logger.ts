@@ -1,7 +1,8 @@
-import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import PinoHttp, { HttpLogger } from 'pino-http';
 import { GCPLogger } from './gcp.logger';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RequestLogger implements NestMiddleware {
@@ -9,8 +10,9 @@ export class RequestLogger implements NestMiddleware {
 
   constructor(
     private _logger: GCPLogger,
-    @Inject('GCP_PROJECT_ID') _projectId: string,
+    private readonly configService: ConfigService,
   ) {
+    const _projectId = this.configService.get('PROJECT_ID');
     this._pinoHttp = PinoHttp({
       logger: _logger.logger,
       customProps: (req: Request) => {

@@ -1,17 +1,12 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
-import { GCPLogger } from '../logger/gcp.logger';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class HelmetMiddleware implements NestMiddleware {
   private helmet: any;
 
-  constructor(
-    private readonly configService: ConfigService,
-    private readonly logger: GCPLogger,
-  ) {
+  constructor() {
     this.helmet = helmet();
   }
 
