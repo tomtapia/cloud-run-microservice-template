@@ -8,8 +8,9 @@ import { ConfigModule } from '@nestjs/config';
 import { getEnv } from '../env';
 import { InfrastructureModule } from './infrastructure.module';
 import { GCPLogger, RequestLogger } from '../logger';
-import { CompressionMiddleware } from '../middleware/compression.middleware';
-import { HelmetMiddleware } from '../middleware/helmet.middleware';
+import { CompressionMiddleware } from '../http/middleware/compression.middleware';
+import { HelmetMiddleware } from '../http/middleware/helmet.middleware';
+import { AllExceptionsFilter } from '../http/filters/http-exception.filter';
 
 @Module({
   imports: [
@@ -20,8 +21,8 @@ import { HelmetMiddleware } from '../middleware/helmet.middleware';
       envFilePath: getEnv(),
     }),
   ],
-  providers: [GCPLogger, RequestLogger],
-  exports: [GCPLogger, RequestLogger],
+  providers: [GCPLogger, RequestLogger, AllExceptionsFilter],
+  exports: [GCPLogger, RequestLogger, AllExceptionsFilter],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

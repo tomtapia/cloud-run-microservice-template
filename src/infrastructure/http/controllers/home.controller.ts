@@ -1,9 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 
-@Controller('home')
+@Controller()
 export class HomeController {
   @Get()
-  find(): string {
+  root(): string {
     return 'This action returns an empty response';
   }
 }

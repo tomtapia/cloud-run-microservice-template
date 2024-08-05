@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Application Metadata</title>
+  </head>
+  <body>
+    <h1>Application Metadata</h1>
+    <h2>Instance Metadata</h2>
+    <ul>
+    {{#each instance}}
+        <li>{{key}}: {{value}}</li>
+    {{/each}}
+    </ul>
+    <h2>Project Metadata</h2>
+    <ul>
+    {{#each project}}
+        <li>{{key}}: {{value}}</li>
+    {{/each}}
+    </ul>
+  </body>
+</html>
