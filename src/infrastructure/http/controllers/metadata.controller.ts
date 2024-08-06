@@ -1,3 +1,4 @@
+import { env } from 'process';
 import { Controller, Get, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { gcpMetadata } from 'google-auth-library';
@@ -11,10 +12,17 @@ export class MetadataController {
     const jsonResponse = {
       instance: {},
       project: {},
+      environment: env,
     };
 
     if (isAvailable) {
-      jsonResponse.instance = await gcpMetadata.instance();
+      jsonResponse.instance = {
+        id: await gcpMetadata.instance('id'),
+        platformSecurity: await gcpMetadata.instance('platform-security'),
+        region: await gcpMetadata.instance('region'),
+        serviceAccounts: await gcpMetadata.instance('service-accounts'),
+        zone: await gcpMetadata.instance('zone'),
+      };
       jsonResponse.project = await gcpMetadata.project();
     }
 
