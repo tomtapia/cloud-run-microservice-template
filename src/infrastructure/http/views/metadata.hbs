@@ -9,19 +9,19 @@
     <h2>Instance Metadata</h2>
     <ul>
     {{#each instance}}
-        <li>{{key}}: {{value}}</li>
+        <li>{{@key}}: {{this}}</li>
     {{/each}}
     </ul>
     <h2>Project Metadata</h2>
     <ul>
     {{#each project}}
-        <li>{{key}}: {{value}}</li>
+        <li>{{@key}}: {{this}}</li>
     {{/each}}
     </ul>
     <h2>Environment Variables</h2>
     <ul>
     {{#each environment}}
-        <li>{{key}}: {{value}}</li>
+        <li>{{@key}}: {{this}}</li>
     {{/each}}
     </ul>
   </body>

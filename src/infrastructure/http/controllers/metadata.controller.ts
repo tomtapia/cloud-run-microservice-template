@@ -20,10 +20,16 @@ export class MetadataController {
         id: await gcpMetadata.instance('id'),
         platformSecurity: await gcpMetadata.instance('platform-security'),
         region: await gcpMetadata.instance('region'),
-        serviceAccounts: await gcpMetadata.instance('service-accounts'),
+        serviceAccounts: {
+          email: await gcpMetadata.instance('service-accounts/default/email'),
+          token: await gcpMetadata.instance('service-accounts/default/token'),
+        },
         zone: await gcpMetadata.instance('zone'),
       };
-      jsonResponse.project = await gcpMetadata.project();
+      jsonResponse.project = {
+        projectId: await gcpMetadata.project('project-id'),
+        numericProjectId: await gcpMetadata.project('numeric-project-id'),
+      };
     }
 
     if (acceptHeader.includes('text/html')) {
