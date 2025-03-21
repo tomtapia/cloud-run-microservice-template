@@ -1,4 +1,3 @@
-import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder, OpenAPIObject } from '@nestjs/swagger';
@@ -6,10 +5,10 @@ import { AppModule } from './infrastructure/ioc/app.module';
 import { GCPLogger } from './infrastructure/logger';
 import { join } from 'path';
 import { AllExceptionsFilter } from './infrastructure/http/filters/http-exception.filter';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap(): Promise<void> {
-  const app: NestExpressApplication =
-    await NestFactory.create<NestExpressApplication>(AppModule);
+  const app: NestExpressApplication = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // Configuration Service Instance
   const configService: ConfigService = app.get(ConfigService);
