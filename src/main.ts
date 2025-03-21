@@ -8,7 +8,8 @@ import { AllExceptionsFilter } from './infrastructure/http/filters/http-exceptio
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap(): Promise<void> {
-  const app: NestExpressApplication = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app: NestExpressApplication =
+    await NestFactory.create<NestExpressApplication>(AppModule);
 
   // Configuration Service Instance
   const configService: ConfigService = app.get(ConfigService);
