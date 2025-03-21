@@ -32,7 +32,7 @@ export class GCPLogger implements LoggerService {
     this.logger.trace?.(message, ...optionalParams);
   }
   setLogLevels?(levels: LogLevel[]) {
-    throw new Error('Method not supported yet.');
+    throw new Error('Method not supported.');
   }
 
   public get logger(): Logger {
