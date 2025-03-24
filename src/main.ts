@@ -4,7 +4,7 @@ import { SwaggerModule, DocumentBuilder, OpenAPIObject } from '@nestjs/swagger';
 import { AppModule } from './infrastructure/ioc/app.module';
 import { GCPLogger } from './infrastructure/logger';
 import { join } from 'path';
-import { AllExceptionsFilter } from './infrastructure/http/filters/http-exception.filter';
+import { AllExceptionsFilter } from './infrastructure/adapters/inbound/http/filters/http-exception.filter';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap(): Promise<void> {

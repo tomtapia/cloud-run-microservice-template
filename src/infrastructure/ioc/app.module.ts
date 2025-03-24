@@ -8,9 +8,9 @@ import { ConfigModule } from '@nestjs/config';
 import { getEnv } from '../env';
 import { InfrastructureModule } from './infrastructure.module';
 import { GCPLogger, RequestLogger } from '../logger';
-import { CompressionMiddleware } from '../http/middleware/compression.middleware';
-import { HelmetMiddleware } from '../http/middleware/helmet.middleware';
-import { AllExceptionsFilter } from '../http/filters/http-exception.filter';
+import { CompressionMiddleware } from '../adapters/inbound/http/middleware/compression.middleware';
+import { HelmetMiddleware } from '../adapters/inbound/http/middleware/helmet.middleware';
+import { AllExceptionsFilter } from '../adapters/inbound/http/filters/http-exception.filter';
 
 @Module({
   imports: [
