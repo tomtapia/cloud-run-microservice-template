@@ -26,6 +26,7 @@
     "@nestjs/cqrs": "^11.0.2",
     "@nestjs/platform-express": "^11.0.12",
     "@nestjs/swagger": "^11.0.7",
+    "@nestjs/throttler": "^6.4.0",
     "compression": "^1.7.4",
     "gcp-metadata": "^6.1.0",
     "google-auth-library": "^9.11.0",
